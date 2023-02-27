@@ -1,7 +1,7 @@
 use super::*;
 
 #[derive(Boilerplate)]
-pub(crate) struct OutputHtml {
+pub(crate) struct OutputJson {
   pub(crate) outpoint: OutPoint,
   pub(crate) list: Option<List>,
   pub(crate) chain: Chain,
@@ -9,7 +9,7 @@ pub(crate) struct OutputHtml {
   pub(crate) inscriptions: Vec<InscriptionId>,
 }
 
-impl PageContent for OutputHtml {
+impl PageContent for OutputJson {
   fn title(&self) -> String {
     format!("Output {}", self.outpoint)
   }
@@ -25,7 +25,7 @@ mod tests {
   #[test]
   fn unspent_output() {
     assert_regex_match!(
-      OutputHtml {
+      OutputJson {
         inscriptions: Vec::new(),
         outpoint: outpoint(1),
         list: Some(List::Unspent(vec![(0, 1), (1, 3)])),
@@ -56,7 +56,7 @@ mod tests {
   #[test]
   fn spent_output() {
     assert_regex_match!(
-      OutputHtml {
+      OutputJson {
         inscriptions: Vec::new(),
         outpoint: outpoint(1),
         list: Some(List::Spent),
@@ -82,7 +82,7 @@ mod tests {
   #[test]
   fn no_list() {
     assert_regex_match!(
-      OutputHtml {
+      OutputJson {
         inscriptions: Vec::new(),
         outpoint: outpoint(1),
         list: None,
@@ -109,7 +109,7 @@ mod tests {
   #[test]
   fn with_inscriptions() {
     assert_regex_match!(
-      OutputHtml {
+      OutputJson {
         inscriptions: vec![inscription_id(1)],
         outpoint: outpoint(1),
         list: None,

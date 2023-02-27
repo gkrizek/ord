@@ -1,0 +1,15 @@
+{
+  "inscriptions": [
+%% for inscription in &self.inscriptions {
+    "{{ inscription }}",
+%% }
+  ],
+  "output_value": "{{ self.output.value }}",
+  "script_pubkey": "{{ self.output.script_pubkey.asm() }}",
+%% if let Ok(address) = self.chain.address_from_script(&self.output.script_pubkey ) {
+  "address": "{{ address }}",
+%% } else {
+  "address": "",
+%% }
+  "transaction": "{{ self.outpoint.txid }}"
+}

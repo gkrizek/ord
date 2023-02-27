@@ -6,7 +6,7 @@ use {
   super::*,
   crate::page_config::PageConfig,
   crate::templates::{
-    BlockHtml, ClockSvg, HomeHtml, InputHtml, InscriptionJson, InscriptionsHtml, OutputHtml,
+    BlockHtml, ClockSvg, HomeHtml, InputHtml, InscriptionJson, InscriptionsHtml, OutputJson,
     PageContent, PageHtml, PreviewAudioHtml, PreviewImageHtml, PreviewPdfHtml, PreviewTextHtml,
     PreviewUnknownHtml, PreviewVideoHtml, RangeHtml, RareTxt, SatHtml, TransactionHtml,
   },
@@ -394,7 +394,7 @@ impl Server {
     Extension(page_config): Extension<Arc<PageConfig>>,
     Extension(index): Extension<Arc<Index>>,
     Path(outpoint): Path<OutPoint>,
-  ) -> ServerResult<PageHtml<OutputHtml>> {
+  ) -> ServerResult<PageHtml<OutputJson>> {
     let list = if index.has_sat_index()? {
       index.list(outpoint)?
     } else {
@@ -427,7 +427,7 @@ impl Server {
     let inscriptions = index.get_inscriptions_on_output(outpoint)?;
 
     Ok(
-      OutputHtml {
+      OutputJson {
         outpoint,
         inscriptions,
         list,
