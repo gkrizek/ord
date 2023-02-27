@@ -1,0 +1,28 @@
+{
+  "number": "{{ self.number }}",
+  "id": "{{ self.inscription_id }}",
+%% if let Ok(address) = self.chain.address_from_script(&self.output.script_pubkey ) {
+  "address": "{{ address }}",
+%% } else {
+  "address": "",
+%% }
+  "output": "{{ self.output.value }}",
+%% if let Some(sat) = self.sat {
+  "sat": "{{ sat }}",
+%% } else {
+  "sat": "",
+%% }
+  "content": "",
+%% if let Some(content_type) = self.inscription.content_type() {
+  "content_type": "{{ content_type }}",
+%% } else {
+  "content_type": ""
+%% }
+  "timestamp": "{{ self.timestamp }}",
+  "genesis_height": "{{ self.genesis_height }}",
+  "genesis_fee": "{{ self.genesis_fee }}",
+  "genesis_transaction": "{{ self.inscription_id.txid }}",
+  "location": "{{ self.satpoint }}",
+  "output": "{{ self.satpoint.outpoint }}",
+  "offset": "{{ self.satpoint.offset }}"
+}

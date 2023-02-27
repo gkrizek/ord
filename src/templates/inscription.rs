@@ -1,7 +1,7 @@
 use super::*;
 
 #[derive(Boilerplate)]
-pub(crate) struct InscriptionHtml {
+pub(crate) struct InscriptionJson {
   pub(crate) chain: Chain,
   pub(crate) genesis_fee: u64,
   pub(crate) genesis_height: u64,
@@ -16,7 +16,7 @@ pub(crate) struct InscriptionHtml {
   pub(crate) timestamp: DateTime<Utc>,
 }
 
-impl PageContent for InscriptionHtml {
+impl PageContent for InscriptionJson {
   fn title(&self) -> String {
     format!("Inscription {}", self.number)
   }
@@ -33,7 +33,7 @@ mod tests {
   #[test]
   fn without_sat_or_nav_links() {
     assert_regex_match!(
-      InscriptionHtml {
+      InscriptionJson {
         chain: Chain::Mainnet,
         genesis_fee: 1,
         genesis_height: 0,
@@ -92,7 +92,7 @@ mod tests {
   #[test]
   fn with_sat() {
     assert_regex_match!(
-      InscriptionHtml {
+      InscriptionJson {
         chain: Chain::Mainnet,
         genesis_fee: 1,
         genesis_height: 0,
@@ -124,7 +124,7 @@ mod tests {
   #[test]
   fn with_prev_and_next() {
     assert_regex_match!(
-      InscriptionHtml {
+      InscriptionJson {
         chain: Chain::Mainnet,
         genesis_fee: 1,
         genesis_height: 0,
